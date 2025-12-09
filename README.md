@@ -1,2 +1,1 @@
-# 42-PythonModules
 New common-core's "Python piscine" that teaches python for the later projects (skips 20 steps each exercise)
