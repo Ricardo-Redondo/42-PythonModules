@@ -1,10 +1,16 @@
+#!/usr/bin/env python3
+
 class SecurePlant:
-    def __init__(self, name, height, age):
+    """A class representing a plant with validation for height and age"""
+
+    def __init__(self, name: str, height: int, age: int):
+        """Initialize a secure plant with name, height, and age"""
         self.name = name
         self.__height = 0
         self.__age = 0
 
-    def set_height(self, height):
+    def set_height(self, height: int) -> None:
+        """Set plant height if positive, otherwise reject"""
         if int(height) > 0:
             self.__height = height
             print(f"Height updated: {height} [OK]")
@@ -12,7 +18,8 @@ class SecurePlant:
             print(f"Invalid operation attempted: height {height} [REJECTED]")
             print("Security: Negative height rejected")
 
-    def set_age(self, age):
+    def set_age(self, age: int) -> None:
+        """Set plant age if positive, otherwise reject"""
         if int(age) > 0:
             self.__age = age
             print(f"Age updated: {age} [OK]")
@@ -20,31 +27,34 @@ class SecurePlant:
             print(f"Invalid operation attempted: age {age} [REJECTED]")
             print("Security: Negative age rejected")
 
-    def get_height(self):
+    def get_height(self) -> int:
+        """Return the plant's height"""
         return self.__height
 
-    def get_age(self):
+    def get_age(self) -> int:
+        """Return the plant's age"""
         return self.__age
 
-    def get_info(self):
+    def get_info(self) -> None:
+        """Print plant information"""
         print(f"{self.name}:")
         print(f"\t{self.get_height()} cm,")
         print(f"\t{self.get_age()} days old.")
 
 
-def main():
-    plant_data = [
-        ("rose", "1", "5"),
-        ("chocolate cosmos", "40", "12"),
-        ("black bat", "26", "29"),
-        ("flame lily", "-20", "10"),
-        ("Ghost orchid", "16", "-17")
+def main() -> None:
+    """Create secure plants with validation and display their contents"""
+    plant_data: list[tuple[str, int, int]] = [
+        ("rose", 1, 5),
+        ("chocolate cosmos", 40, 12),
+        ("black bat", 26, 29),
+        ("flame lily", -20, 10),
+        ("Ghost orchid", 16, -17)
     ]
-
-    plants = []
+    plants: list[SecurePlant] = []
 
     for name, height, age in plant_data:
-        plant = SecurePlant(name, height, age)
+        plant: SecurePlant = SecurePlant(name, height, age)
         print(f"Plant created: {plant.name}")
         plant.set_height(height)
         plant.set_age(age)

@@ -1,33 +1,42 @@
+#!/usr/bin/env python3
+
 class Plant:
-    def __init__(self, name, height, age):
+    """A class representing a plant with name, height, and age"""
+
+    def __init__(self, name: str, height: int, age: int):
+        """Initialize a plant with name, height, and age"""
         self.name = name
         self.height = height
         self.age = age
 
-    def grow(self):
+    def grow(self) -> None:
+        """Increase plant height by 5cm"""
         self.height += 5
         print(f"{self.name} has grown 5cm")
 
-    def age(self):
+    def age(self) -> None:
+        """Increase plant age by 1 day"""
         self.age = self.age + 1
         print(f"{self.name} has aged 1 day")
 
-    def get_info(self):
+    def get_info(self) -> None:
+        """Print plant information"""
         print(f"{self.name}: {self.height} cm, {self.age} days old\n")
 
 
 def main():
-    plant1 = Plant("rose", "0.45", "5")
-    plant2 = Plant("chocolate cosmos", "60", "12")
-    plant3 = Plant("black bat", "100", "30")
-    count = 0
+    """Create plants, simulate growth over a week, and display results"""
+    plant1: Plant = Plant("rose", 1, 5)
+    plant2: Plant = Plant("chocolate cosmos", 60, 12)
+    plant3: Plant = Plant("black bat", 100, 30)
+    count: int = 0
 
-    plants = [plant1, plant2, plant3]
+    plants: list[Plant] = [plant1, plant2, plant3]
     print("Initial status:\n")
     for plant in plants:
         plant.get_info()
 
-    Range = [1, 2, 3, 4, 5, 6, 7]
+    Range: list[int] = [1, 2, 3, 4, 5, 6, 7]
     for i in Range:
         for plant in plants:
             plant.grow

@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
 def main():
-    name = "Chocolate cosmos"
-    c_name = "Cosmos atrosanguineus"
-    heigth = "40 to 60 cm tall"
-    leaves_heigth = "7 to 15 cm long"
+    """strings variables that are printed"""
+    name: str = "Chocolate cosmos"
+    c_name: str = "Cosmos atrosanguineus"
+    heigth: str = "40 to 60 cm tall"
+    leaves_heigth: str = "7 to 15 cm long"
 
     print("Garden:")
     print(f"Flower name: {name}")

@@ -1,14 +1,20 @@
+#!/usr/bin/env python3
+
 class Plant:
-    def __init__(self, name, height, age):
+    """A class representing a plant with name, height, and age"""
+
+    def __init__(self, name: str, height: int, age: int):
+        """Initialize a plant with name, height, and age"""
         self.name = name
         self.height = height
         self.age = age
 
 
 def main():
-    plant1 = Plant("rose", "0.45cm", "5")
-    plant2 = Plant("chocolate cosmos", "60cm", "12")
-    plant3 = Plant("black bat", "100cm", "30")
+    """Addind 3 plants with diferent atributes then printing them"""
+    plant1: Plant = Plant("rose", 1, 5)
+    plant2: Plant = Plant("chocolate cosmos", 60, 12)
+    plant3: Plant = Plant("black bat", 100, 30)
     print(f"{plant1.name}: {plant1.height} height, {plant1.age} days old")
     print(f"{plant2.name}: {plant2.height} height, {plant2.age} days old")
     print(f"{plant3.name}: {plant3.height} height, {plant3.age} days old")

@@ -1,91 +1,122 @@
+#!/usr/bin/env python3
+
 class Plant:
-    def __init__(self, name, height):
+    """A base class representing a plant with name and height"""
+
+    def __init__(self, name: str, height: int):
+        """Initialize a plant with name and height"""
         self.name = name
         self.height = height
 
-    def grow(self, amount=0):
+    def grow(self, amount: int = 0) -> int:
+        """Grow the plant by the specified amount"""
         self.height += amount
         print(f"{self.name} has grown {amount}cm.")
         return amount
 
     @staticmethod
-    def validate_height(height):
+    def validate_height(height: int) -> bool:
+        """Validate that height is positive"""
         return height > 0
 
-    def get_info(self):
+    def get_info(self) -> None:
+        """Print plant information"""
         print(f"{self.name}: {self.height} cm.")
 
 
 class FloweringPlant(Plant):
-    def __init__(self, name, height, bloom):
+    """A class representing a flowering plant"""
+
+    def __init__(self, name: str, height: int, bloom: bool):
+        """Initialize a flowering plant with name, height, and bloom status"""
         super().__init__(name, height)
         self.bloom = bloom
 
 
 class PrizeFlower(FloweringPlant):
-    def __init__(self, name, height, bloom, value):
+    """A class representing a prize-winning flower with point value"""
+
+    def __init__(self, name: str, height: int, bloom: bool, value: int):
+        """
+        Initialize a prize flower with name, height, bloom status, and value
+        """
         super().__init__(name, height, bloom)
         self.value = value
 
 
 class Garden:
-    def __init__(self, name):
-        self.name = name
-        self.plants = []
+    """A class representing a garden containing plants"""
 
-    def add_plant(self, plant):
+    def __init__(self, name: str):
+        """Initialize a garden with a name"""
+        self.name = name
+        self.plants: list[Plant] = []
+
+    def add_plant(self, plant: Plant) -> None:
+        """Add a plant to the garden"""
         print(f"Added {plant.name} to {self.name}.")
         self.plants.append(plant)
 
 
 class GardenManager:
+    """A class managing multiple gardens and their statistics"""
+
     def __init__(self):
-        self.gardens = []
-        self.stats = self.GardenStats(self)
-        self.total_growth = 0
-        self.total_plants = 0
+        """Initialize a garden manager"""
+        self.gardens: list[Garden] = []
+        self.stats: GardenManager.GardenStats = self.GardenStats(self)
+        self.total_growth: int = 0
+        self.total_plants: int = 0
 
     class GardenStats:
-        def __init__(self, manager):
+        """A nested class for managing garden statistics"""
+
+        def __init__(self, manager: 'GardenManager'):
+            """Initialize garden stats with a reference to the manager"""
             self.manager = manager
 
-        def count_plants(self):
-            total = 0
+        def count_plants(self) -> int:
+            """Count total number of plants across all gardens"""
+            total: int = 0
             for garden in self.manager.gardens:
                 total += len(garden.plants)
             return total
 
-        def validate_all_heights(self):
+        def validate_all_heights(self) -> bool:
+            """Validate that all plants have positive heights"""
             for garden in self.manager.gardens:
                 for plant in garden.plants:
                     if not Plant.validate_height(plant.height):
                         return False
             return True
 
-        def garden_scores(self):
-            scores = []
+        def garden_scores(self) -> None:
+            """Print scores for each garden based on prize flowers"""
+            scores: list[str] = []
             for garden in self.manager.gardens:
-                total_score = 0
+                total_score: int = 0
 
                 for plant in garden.plants:
                     if isinstance(plant, PrizeFlower):
                         total_score += plant.value
 
                 if "'" in garden.name:
-                    owner = garden.name.split("'")[0]
+                    owner: str = garden.name.split("'")[0]
                 else:
-                    owner = garden.name
+                    owner: str = garden.name
 
                 scores.append(f"{owner}: {total_score}")
             print(f"Garden scores - {', '.join(scores)}")
 
-        def total_gardens(self):
+        def total_gardens(self) -> None:
+            """Print total number of gardens managed"""
             print(f"Total gardens managed: {len(self.manager.gardens)}")
 
-        def count_by_type(self):
-            r = 0
-            f = 0
-            p = 0
+        def count_by_type(self) -> None:
+            """Count and print plants by type"""
+            r: int = 0
+            f: int = 0
+            p: int = 0
 
             for garden in self.manager.gardens:
                 for plant in garden.plants:
@@ -97,26 +128,32 @@ class GardenManager:
                         r += 1
             print(f"Plants: {r} regular, {f} flowering, {p} prize flowers")
 
-        def total_growth_and_plants(self):
+        def total_growth_and_plants(self) -> None:
+            """Print total plants added and total growth"""
             print(
                 f"Plants added: {self.manager.total_plants}, "
                 f"Total growth: {self.manager.total_growth}cm"
             )
 
-    def add_garden(self, garden):
+    def add_garden(self, garden: Garden) -> None:
+        """Add a garden to the network"""
         self.gardens.append(garden)
         print(f"Added {garden.name} to the network.")
 
-    def create_garden(self, name):
-        new_garden = Garden(name)
+    def create_garden(self, name: str) -> Garden:
+        """Create a new garden and add it to the network"""
+        new_garden: Garden = Garden(name)
         self.add_garden(new_garden)
         return new_garden
 
-    def add_plant_to_garden(self, garden, plant):
+    def add_plant_to_garden(self, garden: Garden, plant: Plant) -> None:
+        """Add a plant to a specific garden"""
         garden.add_plant(plant)
         self.total_plants += 1
 
-    def grow_plant_in_garden(self, garden, plant_name, amount):
+    def grow_plant_in_garden(self, garden: Garden, plant_name: str,
+                             amount: int) -> None:
+        """Grow a specific plant in a garden by the given amount"""
         for plant in garden.plants:
             if plant.name == plant_name:
                 plant.grow(amount)
@@ -124,11 +161,12 @@ class GardenManager:
                 return
         print(f"Plant {plant_name} not found in {garden.name}")
 
-    def generate_garden_report(self, garden):
+    def generate_garden_report(self, garden: Garden) -> None:
+        """Generate and print a detailed report for a garden"""
         print(f"\n=== {garden.name} Report ===")
         print("Plants in garden:")
         for plant in garden.plants:
-            info = f"- {plant.name}: {plant.height}cm"
+            info: str = f"- {plant.name}: {plant.height}cm"
 
             if isinstance(plant, FloweringPlant):
                 if plant.bloom:
@@ -140,17 +178,19 @@ class GardenManager:
             print(info)
 
     @classmethod
-    def create_garden_network(cls):
+    def create_garden_network(cls) -> 'GardenManager':
+        """Create a new garden manager using a class method"""
         return cls()
 
 
-def main():
+def main() -> None:
+    """Main function to demonstrate garden management system"""
     # Create manager using class method
-    manager = GardenManager.create_garden_network()
+    manager: GardenManager = GardenManager.create_garden_network()
 
     # Create gardens
-    garden1 = manager.create_garden("Alice's garden")
-    garden2 = manager.create_garden("Bob's garden")
+    garden1: Garden = manager.create_garden("Alice's garden")
+    garden2: Garden = manager.create_garden("Bob's garden")
 
     # Add plants to Alice's garden
     manager.add_plant_to_garden(
