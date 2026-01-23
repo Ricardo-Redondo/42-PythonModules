@@ -10,7 +10,7 @@ class Plant:
         self.age = age
 
 
-def main():
+def main() -> None:
     """Addind 3 plants with diferent atributes then printing them"""
     plant1: Plant = Plant("rose", 1, 5)
     plant2: Plant = Plant("chocolate cosmos", 60, 12)

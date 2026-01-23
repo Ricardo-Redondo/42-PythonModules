@@ -24,7 +24,7 @@ class Plant:
         print(f"{self.name}: {self.height} cm, {self.age} days old\n")
 
 
-def main():
+def main() -> None:
     """Create plants, simulate growth over a week, and display results"""
     plant1: Plant = Plant("rose", 1, 5)
     plant2: Plant = Plant("chocolate cosmos", 60, 12)
