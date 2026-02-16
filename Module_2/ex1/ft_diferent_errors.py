@@ -1,5 +1,8 @@
 #!/usr/bin/env python3
 
+from typing import TextIOWrapper
+
+
 def garden_operations() -> None:
     """Demonstrates different types of errors"""
 
@@ -11,7 +14,7 @@ def garden_operations() -> None:
     result = result
 
     # FileNotFoundError: opening a file that doesn't exist
-    file = open("missing.txt", "r")
+    file: TextIOWrapper = open("missing.txt", "r")
     file.read()
     file.close()
 
@@ -41,7 +44,7 @@ def test_error_types() -> None:
 
     print("Testing FileNotFoundError...")
     try:
-        file = open("missing.txt", "r")
+        file: TextIOWrapper = open("missing.txt", "r")
         file.read()
         file.close()
     except FileNotFoundError:
