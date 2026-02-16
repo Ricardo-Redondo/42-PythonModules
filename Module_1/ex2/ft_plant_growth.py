@@ -34,15 +34,15 @@ def main() -> None:
     for plant in plants:
         plant.get_info()
 
-    for i in range(1, 7):
+    for i in range(1, 8):
         for plant in plants:
             plant.grow()
             plant.age()
+            count += 5
 
     print("\n=== Day 7 ===")
     for plant in plants:
         plant.get_info()
-        count += 5
     print(f"\nGrowth this week: {count}")
 
 

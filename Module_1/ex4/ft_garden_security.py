@@ -3,7 +3,7 @@
 class SecurePlant:
     """A class representing a plant with validation for height and age"""
 
-    def __init__(self, name: str, height: int, age: int) -> None:
+    def __init__(self, name: str) -> None:
         """Initialize a secure plant with name, height, and age"""
         self.name: str = name
         self.__height: int = 0
@@ -56,7 +56,7 @@ def main() -> None:
     plants: list[SecurePlant] = []
 
     for name, height, age in plant_data:
-        plant: SecurePlant = SecurePlant(name, height, age)
+        plant: SecurePlant = SecurePlant(name)
         print(f"Plant created: {plant.name}")
         plant.set_height(height)
         plant.set_age(age)

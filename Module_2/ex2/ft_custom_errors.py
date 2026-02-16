@@ -39,20 +39,20 @@ class WaterError(GardenError):
 def water_plant(plant: Plant, amount: int) -> None:
     """Water a plant with validation"""
     if amount < 0:
-        raise WaterError(f"Error: {amount} is not valid")
+        raise WaterError(f"{amount} is not valid")
 
 
 def validate_plant(plant: Plant) -> None:
     """Validate plant height"""
     if plant.height <= 0:
-        raise PlantError(f"Error: {plant.name} has negative height")
+        raise PlantError(f"{plant.name} has negative height")
 
 
 def print_garden(garden: Garden) -> None:
     """Print garden information"""
     count: int = len(garden.plants)
     if count <= 0:
-        raise GardenError("Error: Garden is empty")
+        raise GardenError("Garden is empty")
 
 
 def test_errors() -> None:
@@ -61,20 +61,20 @@ def test_errors() -> None:
     plant1: Plant = Plant("tulip", -1)
     plant2: Plant = Plant("rose", 5)
 
-    print("=== Custom Garden Errors Demo ===")
+    print("=== Custom Garden Errors Demo ===\n")
     print("Testing PlantError...")
     try:
         validate_plant(plant1)
     except PlantError as e:
         print(f"Caught PlantError: {e}")
-    print("\n")
+    print()
 
     print("Testing WaterError...")
     try:
         water_plant(plant2, -3)
     except WaterError as e:
         print(f"Caught WaterError: {e}")
-    print("\n")
+    print()
 
     print("Testing catching all garden errors...")
     try:
@@ -91,15 +91,10 @@ def test_errors() -> None:
         print_garden(garden)
     except GardenError as e:
         print(f"Caught GardenError: {e}")
-    print("\n")
+    print()
 
     print("All custom error types work correctly!")
 
 
-def main() -> None:
-    """Main function to run error tests"""
-    test_errors()
-
-
 if __name__ == "__main__":
-    main()
+    test_errors()

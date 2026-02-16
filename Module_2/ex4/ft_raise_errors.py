@@ -44,13 +44,13 @@ def test_plant_checks() -> None:
 
     print("Testing bad water level...")
     try:
-        print(f"{check_plant_health('tomato', 11, 7)}\n")
+        print(f"{check_plant_health('tomato', 12, 7)}\n")
     except HealthError as e:
         print(f"{e}\n")
 
     print("Testing bad sunlight hours...")
     try:
-        print(f"{check_plant_health('tomato', 4, 1)}\n")
+        print(f"{check_plant_health('tomato', 4, 0)}\n")
     except HealthError as e:
         print(f"{e}\n")
 

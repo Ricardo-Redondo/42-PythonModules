@@ -34,7 +34,7 @@ def water_plants(plant_list: list[Plant]) -> None:
             except PlantError as e:
                 print(f"{e}")
     finally:
-        print("Closing Watering system")
+        print("Closing Watering system (cleanup)")
 
 
 def test_watering_system() -> None:

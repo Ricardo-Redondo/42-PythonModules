@@ -26,7 +26,7 @@ def test_error_types() -> None:
 
     print("=== Garden Error Types Demo ===")
 
-    print("Testing ValueError...\n")
+    print("\nTesting ValueError...")
     try:
         int("abc")
     except ValueError:
