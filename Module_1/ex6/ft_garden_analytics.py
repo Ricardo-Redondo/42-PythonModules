@@ -187,12 +187,14 @@ class GardenManager:
 def main() -> None:
     """Main function to demonstrate garden management system"""
 
+    print("=== Garden Management System Demo ===\n")
     # Create manager using class method
     manager: GardenManager = GardenManager.create_garden_network()
 
     # Create gardens
     garden1: Garden = manager.create_garden("Alice's garden")
     garden2: Garden = manager.create_garden("Bob's garden")
+    print()
 
     # Add plants to Alice's garden
     manager.add_plant_to_garden(
@@ -208,6 +210,7 @@ def main() -> None:
         PrizeFlower("Sunflower", 50, True, 10)
     )
 
+    print()
     # Add plants to Bob's garden
     manager.add_plant_to_garden(
         garden2,
@@ -232,7 +235,7 @@ def main() -> None:
     print()
     manager.stats.total_growth_and_plants()
     manager.stats.count_by_type()
-    print(f"Height validation test: {manager.stats.validate_all_heights()}")
+    print(f"\nHeight validation test: {manager.stats.validate_all_heights()}")
     manager.stats.garden_scores()
     manager.stats.total_gardens()
 

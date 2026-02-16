@@ -16,6 +16,9 @@ class Plant:
 
 def main() -> None:
     """Create plants automatically and display their contents"""
+
+    print("=== Plant Factory Output ===\n")
+
     plant_data: list[tuple[str, float, int]] = [
         ("rose", 0.45, 5),
         ("chocolate cosmos", 40, 12),

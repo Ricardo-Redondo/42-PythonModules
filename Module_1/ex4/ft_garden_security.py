@@ -37,13 +37,15 @@ class SecurePlant:
 
     def get_info(self) -> None:
         """Print plant information"""
-        print(f"{self.name}:")
-        print(f"\t{self.get_height()} cm,")
-        print(f"\t{self.get_age()} days old.")
+        print(f"Current plant: {self.name}"
+              f" ({self.get_height()} cm, {self.get_age()} days)")
 
 
 def main() -> None:
     """Create secure plants with validation and display their contents"""
+
+    print("=== Garden Security System ===\n")
+
     plant_data: list[tuple[str, int, int]] = [
         ("rose", 1, 5),
         ("chocolate cosmos", 40, 12),

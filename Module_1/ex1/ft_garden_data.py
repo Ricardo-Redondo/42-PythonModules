@@ -5,9 +5,9 @@ class Plant:
 
     def __init__(self, name: str, height: int, age: int) -> None:
         """Initialize a plant with name, height, and age"""
-        self.name = name
-        self.height = height
-        self.age = age
+        self.name: str = name
+        self.height: int = height
+        self.age: int = age
 
 
 def main() -> None:
