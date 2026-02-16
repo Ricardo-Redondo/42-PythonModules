@@ -3,7 +3,7 @@
 class Plant:
     """A class representing a plant with name, height, and age"""
 
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         """Initialize a plant with name, height, and age"""
         self.name = name
         self.height = height

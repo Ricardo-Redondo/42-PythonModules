@@ -9,8 +9,8 @@ def main():
 
     print("Garden:")
     print(f"Flower name: {name}")
-    print(f"Cientific name: {c_name}")
-    print(f"Flower heigth: {heigth}")
+    print(f"Scientific name: {c_name}")
+    print(f"Flower height: {heigth}")
     print(f"Leaves length: {leaves_heigth}")
 
 

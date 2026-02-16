@@ -3,7 +3,7 @@
 class Plant:
     """A class representing a plant with name, height, and age"""
 
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         """Initialize a plant with name, height, and age"""
         self.name = name
         self.height = height
@@ -11,7 +11,7 @@ class Plant:
 
 
 def main() -> None:
-    """Addind 3 plants with diferent atributes then printing them"""
+    """Adding 3 plants with different attributes then printing them"""
     plant1: Plant = Plant("rose", 1, 5)
     plant2: Plant = Plant("chocolate cosmos", 60, 12)
     plant3: Plant = Plant("black bat", 100, 30)

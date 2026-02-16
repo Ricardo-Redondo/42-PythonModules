@@ -3,11 +3,11 @@
 class SecurePlant:
     """A class representing a plant with validation for height and age"""
 
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         """Initialize a secure plant with name, height, and age"""
-        self.name = name
-        self.__height = 0
-        self.__age = 0
+        self.name: str = name
+        self.__height: int = 0
+        self.__age: int = 0
 
     def set_height(self, height: int) -> None:
         """Set plant height if positive, otherwise reject"""

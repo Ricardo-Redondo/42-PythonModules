@@ -3,11 +3,11 @@
 class Plant:
     """A class representing a plant with name, height, and age"""
 
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         """Initialize a plant with name, height, and age"""
-        self.name = name
-        self.height = height
-        self.age = age
+        self.name: str = name
+        self.height: float = height
+        self.age: int = age
 
     def get_info(self) -> None:
         """Print plant information"""
@@ -16,7 +16,7 @@ class Plant:
 
 def main() -> None:
     """Create plants automatically and display their contents"""
-    plant_data: list[tuple[str, int, int]] = [
+    plant_data: list[tuple[str, float, int]] = [
         ("rose", 0.45, 5),
         ("chocolate cosmos", 40, 12),
         ("black bat", 26, 29),

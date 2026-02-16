@@ -3,11 +3,11 @@
 class Plant:
     """A base class representing a plant with name, height, and age"""
 
-    def __init__(self, name: str, height: int, age: int):
+    def __init__(self, name: str, height: int, age: int) -> None:
         """Initialize a plant with name, height, and age"""
-        self.name = name
-        self.height = height
-        self.age = age
+        self.name: str = name
+        self.height: int = height
+        self.age: int = age
 
     def get_height(self) -> int:
         """Return the plant's height"""
@@ -27,7 +27,7 @@ class Plant:
 class Flower(Plant):
     """A class representing a flower with color"""
 
-    def __init__(self, name: str, height: int, age: int, color: str):
+    def __init__(self, name: str, height: int, age: int, color: str) -> None:
         """Initialize a flower with name, height, age, and color"""
         super().__init__(name, height, age)
         self.color = color
@@ -45,7 +45,8 @@ class Flower(Plant):
 class Tree(Plant):
     """A class representing a tree with trunk diameter"""
 
-    def __init__(self, name: str, height: int, age: int, trunk_diameter: int):
+    def __init__(self, name: str, height: int, age: int,
+                 trunk_diameter: int) -> None:
         """Initialize a tree with name, height, age, and trunk diameter"""
         super().__init__(name, height, age)
         self.trunk_diameter = trunk_diameter
@@ -66,7 +67,7 @@ class Vegetable(Plant):
     """
 
     def __init__(self, name: str, height: int, age: int, harvest_season: str,
-                 nutritional_value: str):
+                 nutritional_value: str) -> None:
         """
         Initialize a vegetable with name, height, age,
         harvest season, and nutritional value

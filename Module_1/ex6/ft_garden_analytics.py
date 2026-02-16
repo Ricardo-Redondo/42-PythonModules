@@ -3,10 +3,10 @@
 class Plant:
     """A base class representing a plant with name and height"""
 
-    def __init__(self, name: str, height: int):
+    def __init__(self, name: str, height: int) -> None:
         """Initialize a plant with name and height"""
-        self.name = name
-        self.height = height
+        self.name: str = name
+        self.height: int = height
 
     def grow(self, amount: int = 0) -> int:
         """Grow the plant by the specified amount"""
@@ -27,29 +27,30 @@ class Plant:
 class FloweringPlant(Plant):
     """A class representing a flowering plant"""
 
-    def __init__(self, name: str, height: int, bloom: bool):
+    def __init__(self, name: str, height: int, bloom: bool) -> None:
         """Initialize a flowering plant with name, height, and bloom status"""
         super().__init__(name, height)
-        self.bloom = bloom
+        self.bloom: bool = bloom
 
 
 class PrizeFlower(FloweringPlant):
     """A class representing a prize-winning flower with point value"""
 
-    def __init__(self, name: str, height: int, bloom: bool, value: int):
+    def __init__(self, name: str, height: int, bloom: bool,
+                 value: int) -> None:
         """
         Initialize a prize flower with name, height, bloom status, and value
         """
         super().__init__(name, height, bloom)
-        self.value = value
+        self.value: int = value
 
 
 class Garden:
     """A class representing a garden containing plants"""
 
-    def __init__(self, name: str):
+    def __init__(self, name: str) -> None:
         """Initialize a garden with a name"""
-        self.name = name
+        self.name: str = name
         self.plants: list[Plant] = []
 
     def add_plant(self, plant: Plant) -> None:
@@ -61,7 +62,7 @@ class Garden:
 class GardenManager:
     """A class managing multiple gardens and their statistics"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         """Initialize a garden manager"""
         self.gardens: list[Garden] = []
         self.stats: GardenManager.GardenStats = self.GardenStats(self)
@@ -71,9 +72,9 @@ class GardenManager:
     class GardenStats:
         """A nested class for managing garden statistics"""
 
-        def __init__(self, manager: 'GardenManager'):
+        def __init__(self, manager: 'GardenManager') -> None:
             """Initialize garden stats with a reference to the manager"""
-            self.manager = manager
+            self.manager: GardenManager = manager
 
         def count_plants(self) -> int:
             """Count total number of plants across all gardens"""
@@ -185,6 +186,7 @@ class GardenManager:
 
 def main() -> None:
     """Main function to demonstrate garden management system"""
+
     # Create manager using class method
     manager: GardenManager = GardenManager.create_garden_network()
 
