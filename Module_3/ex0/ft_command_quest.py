@@ -6,7 +6,7 @@ import sys
 def main() -> None:
     """for more than 1 argument, iterates through them and prints them"""
 
-    print("=== Comand Quest ===")
+    print("=== Command Quest ===\n")
     if len(sys.argv) == 1:
         print("No arguments provided!")
     else:

@@ -66,7 +66,7 @@ def main() -> None:
     """Demonstrates the use of generators for memory efficiency"""
     print("=== Game Data Stream Processor ===\n")
 
-    num_events: int = 100
+    num_events: int = 10
     lvl_counter: int = 0
     treasure_counter: int = 0
     lvl_ups: int = 0

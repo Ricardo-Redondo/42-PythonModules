@@ -13,6 +13,9 @@ def calc_pos(pos1: tuple[int, int, int], pos2: tuple[int, int, int]) -> float:
 
 def parse_coordinates(coord_str: str) -> tuple[int, int, int]:
     """Parse coordinate string into tuple of ints"""
+    if not isinstance(coord_str.split(','), list) or \
+            len(coord_str.split(',')) != 3:
+        raise ValueError("Invalid coordinate format. Expected format: 'x,y,z'")
     parts: list[str] = coord_str.split(',')
     x: int = int(parts[0])
     y: int = int(parts[1])
@@ -22,7 +25,7 @@ def parse_coordinates(coord_str: str) -> tuple[int, int, int]:
 
 def main() -> None:
     """Main function demonstrating 3D coordinate system"""
-    print("=== Game Coordinate System ===")
+    print("=== Game Coordinate System ===\n")
 
     origin: tuple[int, int, int] = (0, 0, 0)
     pos1: tuple[int, int, int] = (10, 20, 5)
@@ -32,14 +35,14 @@ def main() -> None:
     print(f"Distance between {origin} and {pos1}: {distance_1:.2f}")
 
     pos_str: str = "3,4,0"
-    print(f"Parsing coordinates: \"{pos_str}\"")
+    print(f"\nParsing coordinates: \"{pos_str}\"")
     pos2: tuple[int, int, int] = parse_coordinates(pos_str)
     print(f"Parsed position: {pos2}")
 
     distance_2: float = calc_pos(origin, pos2)
-    print(f"Distance between {origin} and {pos2}: {distance_2}")
+    print(f"Distance between {origin} and {pos2}: {distance_2}\n")
 
-    if len(sys.argv) == 2:
+    if len(sys.argv) == 3:
         pos_arg: str = sys.argv[1]
         print(f"Parsing coordinates: \"{pos_arg}\"")
         try:
@@ -50,12 +53,12 @@ def main() -> None:
         except ValueError as e:
             print(f"Error parsing coordinates: {e}")
             print(f"Error details - Type: {type(e).__name__}, Args: {e.args}")
-    elif len(sys.argv) > 2:
+    elif len(sys.argv) > 3:
         print("Too many arguments")
     else:
         print("no arguments were given")
 
-    print("Unpacking demonstration:")
+    print("\nUnpacking demonstration:\n")
     x, y, z = pos2
     print(f"Player at x={x}, y={y}, z={z}")
     print(f"Coordinates: X={x}, Y={y}, Z={z}")

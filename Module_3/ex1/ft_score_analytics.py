@@ -9,7 +9,7 @@ def main() -> None:
     makes the following calculations
     """
     scores: list[int] = []
-    print("=== Player Score Analytics ===")
+    print("=== Player Score Analytics ===\n")
 
     if len(sys.argv) == 1:
         print("No scores provided")
