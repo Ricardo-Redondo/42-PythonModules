@@ -152,7 +152,7 @@ def test_garden_management() -> None:
     print("=== Garden Management System ===\n")
 
     print("Adding plants to garden...")
-    plant1: Plant = manager.create_plant("tomato", 3, 5, 20)
+    plant1: Plant = manager.create_plant("tomato", 4, 5, 20)
     manager.add_plant(plant1)
     plant2: Plant = manager.create_plant("lettuce", 3, 15, 4)
     manager.add_plant(plant2)
