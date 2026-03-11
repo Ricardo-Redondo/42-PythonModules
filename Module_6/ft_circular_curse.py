@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 from alchemy.grimoire import validate_ingredients, record_spell
 
 
