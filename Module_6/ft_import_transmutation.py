@@ -23,4 +23,3 @@ if __name__ == "__main__":
     print(f"{create_earth.__name__}(): {create_earth()} created")
     print(f"{create_fire.__name__}(): {create_fire()} created")
     print(f"{strength_potion.__name__}(): {strength_potion()} created")
-
