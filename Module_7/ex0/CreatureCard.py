@@ -16,9 +16,9 @@ class CreatureCard(Card):
             return None
         else:
             game_state = {"card_played": self.name,
-                          "mana_used": 5,
+                          "mana_used": self.cost,
                           "effect": "creature summoned to battlefield"}
-            self.mana -= 5
+            self.mana -= self.cost
             return game_state
 
     def attack_target(self, target) -> dict:

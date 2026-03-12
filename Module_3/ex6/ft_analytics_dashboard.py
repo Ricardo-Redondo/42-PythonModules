@@ -2,7 +2,7 @@
 
 def main() -> None:
     """
-    demonstrates the use of lists, tuples, dictionarys and sets
+    demonstrates the use of lists, tuples, dictionaries and sets
     """
     raw_scores: list[int] = [2300, 1800, 2150, 2050, 1500, 900]
     player_data: list[tuple[str, int, int]] = [
