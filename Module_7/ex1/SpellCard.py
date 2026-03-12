@@ -7,7 +7,20 @@ class SpellCard(Card):
         self.effect_type = effect_type
 
     def play(self, game_state: dict) -> dict:
-        pass
+        if super().is_playable(self.mana) is False:
+            print(f"Playable: {super().is_playable(self.mana)}")
+            return None
+        else:
+            game_state = {"card_played": self.name,
+                          "mana_used": self.cost,
+                          "effect": f"{self.effect_type} spell cast"}
+            return game_state
 
     def resolve_effect(self, targets: list) -> dict:
-        pass
+        if not isinstance(targets, list):
+            print(f"Invalid targets: {targets}")
+            return None
+        return {"spell": self.name,
+                "effect_type": self.effect_type,
+                "targets": targets,
+                "effect_resolved": True}
