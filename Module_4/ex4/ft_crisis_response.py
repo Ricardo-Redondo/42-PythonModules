@@ -12,7 +12,7 @@ def crisis_handler(filename: str) -> None:
 
     try:
         with open(filename, "r") as file:
-            content = file.read().strip()
+            content = file.read().replace("\n", " ").strip()
 
             # Check for corruption
             if "CORRUPTION" in content or "ERROR" in content:
@@ -21,15 +21,15 @@ def crisis_handler(filename: str) -> None:
             else:
                 print(f"SUCCESS: Archive recovered - '{content}'")
                 print("STATUS: Normal operations resumed")
-
-    except FileNotFoundError:
-        print("RESPONSE: Archive not found in storage matrix")
-        print("STATUS: Crisis handled, system stable")
-
     except PermissionError:
         print("RESPONSE: Security protocols deny access")
         print("STATUS: Crisis handled, security maintained")
-
+    except FileNotFoundError:
+        print("RESPONSE: Archive not found in storage matrix")
+        print("STATUS: Crisis handled, system stable")
+    except OSError as e:
+        print(f"RESPONSE: System I/O error - {e}")
+        print("STATUS: Crisis handled, hardware check recommended")
     except Exception as e:
         print(f"RESPONSE: Unexpected anomaly - {e}")
         print("STATUS: Crisis handled, investigation required")

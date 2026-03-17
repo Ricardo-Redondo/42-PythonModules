@@ -13,9 +13,9 @@ def main() -> None:
         content: str = file.read()
         print(content)
 
-        print("\nData recovery complete. Storage unit disconnected")
+        print("\nData recovery complete. Storage unit disconnected\n")
     except FileNotFoundError:
-        print("ERROR: Storage vault not found. Run data generator first.")
+        print("ERROR: Storage vault not found. Run data generator first.\n")
 
 
 if __name__ == "__main__":

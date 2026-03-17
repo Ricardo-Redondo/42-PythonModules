@@ -17,9 +17,10 @@ def main() -> None:
 
     sys.stdout.write(f"\n{s}Archive status from {a_id}: {report}\n")
     sys.stderr.write(f"{a}System diagnostics: Communication channels verified")
-    sys.stdout.write(f"\n{s}Data transmission complete")
+    sys.stderr.flush()  # Ensure stderr is displayed immediately
+    sys.stdout.write(f"\n{s}Data transmission complete\n")
 
-    print("\nThree-channel communication test successful")
+    print("\nThree-channel communication test successful\n")
 
 
 if __name__ == "__main__":

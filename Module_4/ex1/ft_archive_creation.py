@@ -23,11 +23,11 @@ def main() -> None:
         file.close()
 
         print("\nData inscription complete. Storage sealed.")
-        print("Archive 'new_discovery.txt' ready for long-term preservation")
+        print("Archive 'new_discovery.txt' ready for long-term preservation\n")
     except PermissionError:
-        print("ERROR: Permission denied - cannot create archive.")
+        print("ERROR: Permission denied - cannot create archive.\n")
     except OSError as e:
-        print(f"ERROR: Archive creation failed - {e}")
+        print(f"ERROR: Archive creation failed - {e}\n")
 
 
 if __name__ == "__main__":
