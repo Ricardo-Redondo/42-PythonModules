@@ -12,6 +12,7 @@ def main() -> None:
 
         content: str = file.read()
         print(content)
+        file.close()
 
         print("\nData recovery complete. Storage unit disconnected\n")
     except FileNotFoundError:
