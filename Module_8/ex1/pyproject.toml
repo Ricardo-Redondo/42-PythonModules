@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "loading"
+version = "1.0.0"
+description = ""
+authors = ["rsao-pay <rsao-pay@student.42lisboa.com>"]
+package-mode = false
+
+[tool.poetry.dependencies]
+python = "^3.10"
+numpy = "^2.2.6"
+matpotlib = "^3.7.2"
+requests = "^2.31.0"
+pandas = "^2.3.3"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
