@@ -37,7 +37,9 @@ def dependency_check(dependencies: list[str]) -> None:
 
         print("\nor:")
 
-        print("\033[92mpython3\033[96m -m\033[0m pip install poetry")
+        print("\033[92mcurl\033[96m -sSL\033[0m "
+              "https://install.python-poetry.org "
+              "| \033[92mpython3\033[96m -\033[0m")
         print("\033[92mpoetry\033[0m install")
         print("\033[92mpoetry\033[0m run python\033[95m loading.py\033[0m")
 
