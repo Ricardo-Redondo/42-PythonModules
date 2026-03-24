@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 import os
-from dotenv import load_dotenv
 
 if __name__ == "__main__":
     print("\n\033[33mORACLE STATUS:\033[0m Reading the Matrix...")
     try:
+        from dotenv import load_dotenv
         load_dotenv()
 
         mode = os.getenv("MATRIX_MODE")
@@ -24,7 +24,11 @@ if __name__ == "__main__":
         if missing:
             raise ValueError(f"\033[5;41m[Error]\033[0m Missing variables: "
                              f"'{', '.join(missing)}'")
-
+    except ImportError as e:
+        print(f"\033[41m[Error]\033[0m Missing dependency: {e.name}")
+        print("\n\033[33mTry installing it with:\033[0m")
+        print("\033[92mpython3\033[96m -m\033[0m pip install python-dotenv")
+        print("\nThen run this program again.")
     except ValueError as e:
         print(str(e))
     except Exception as e:
