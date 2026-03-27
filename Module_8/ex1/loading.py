@@ -51,10 +51,10 @@ if __name__ == "__main__":
     print("\nLOADING STATUS: Loading programs...")
     dependency_check(["pandas", "numpy", "requests", "matplotlib"])
 
-    import requests
-    import numpy as np
-    import pandas as pd
-    import matplotlib.pyplot as plt
+    import requests  # type: ignore[import-untyped]
+    import numpy as np  # type: ignore[import-untyped]
+    import pandas as pd  # type: ignore[import-untyped]
+    import matplotlib.pyplot as plt  # type: ignore[import-untyped]
 
     print("\nFetching Matrix data...")
     url = (

@@ -4,7 +4,7 @@ import os
 if __name__ == "__main__":
     print("\n\033[33mORACLE STATUS:\033[0m Reading the Matrix...")
     try:
-        from dotenv import load_dotenv
+        from dotenv import load_dotenv  # type: ignore[import-not-found]
         load_dotenv()
 
         mode = os.getenv("MATRIX_MODE")
