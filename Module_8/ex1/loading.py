@@ -37,9 +37,7 @@ def dependency_check(dependencies: list[str]) -> None:
 
         print("\nor:")
 
-        print("\033[92mcurl\033[96m -sSL\033[0m "
-              "https://install.python-poetry.org "
-              "| \033[92mpython3\033[96m -\033[0m")
+        print("")
         print("\033[92mpoetry\033[0m install")
         print("\033[92mpoetry\033[0m run python\033[95m loading.py\033[0m")
 
@@ -65,11 +63,11 @@ if __name__ == "__main__":
     try:
         resp = requests.get(url, timeout=10)
 
-        resp.raise_for_status()
         # Raise an exception for HTTP errors
+        resp.raise_for_status()
 
-        raw_prices = resp.json()["prices"]
         # Grabs "prices" key from json response
+        raw_prices = resp.json()["prices"]
         print(f"\033[92m[OK]\033[0m {len(raw_prices)} daily records received")
     except Exception as e:
         print(f"\033[5;93m[WARN]\033[0m API unavailable ({e}), "
@@ -80,27 +78,28 @@ if __name__ == "__main__":
             for i in range(30)
         ]
 
-    df = pd.DataFrame(raw_prices, columns=["timestamp_ms", "price"])
     # turns the list of [timestamp, price] pairs into a proper table
+    data_frame = pd.DataFrame(raw_prices, columns=["timestamp_ms", "price"])
 
-    df["date"] = pd.to_datetime(df["timestamp_ms"], unit="ms").dt.date
     # converts Unix milliseconds to human-readable dates
+    data_frame["date"] = pd.to_datetime(data_frame["timestamp_ms"],
+                                        unit="ms").dt.date
 
-    df = df[["date", "price"]].copy()
     # keeps only the two useful columns
     # and makes a copy to avoid SettingWithCopyWarning
+    data_frame = data_frame[["date", "price"]].copy()
 
-    prices = df["price"].to_numpy()
     # converts pandas column to raw numpy array
+    prices = data_frame["price"].to_numpy()
 
-    mean = np.mean(prices)
     # average price over 30 days
+    mean = np.mean(prices)
 
-    std = np.std(prices)
     # standard deviation (how much it deviates from the average)
+    std = np.std(prices)
 
-    ma7 = np.convolve(prices, np.ones(7) / 7, mode="valid")
     # 7-day moving average (smooths out short-term fluctuations)
+    ma7 = np.convolve(prices, np.ones(7) / 7, mode="valid")
 
     print(f"Analyzing {len(prices)} data points...")
     print(f"  Mean  : ${mean:,.0f}")
@@ -109,52 +108,55 @@ if __name__ == "__main__":
 
     BG, GREEN, CYAN, DIM = "#0d0d0d", "#00ff41", "#00e5ff", "#1a5c2e"
 
-    fig, ax = plt.subplots(figsize=(10, 5), facecolor=BG)
     # creates the figure (the whole image) and ax (the axes/plot area)
-    ax.set_facecolor(BG)
+    _, axes = plt.subplots(figsize=(10, 5), facecolor=BG)
+    axes.set_facecolor(BG)
 
+    # 7-day moving average starts from the 7th day (index 6)
     x = np.arange(len(prices))
     x_ma7 = np.arange(6, len(prices))
-    # 7-day moving average starts from the 7th day (index 6)
 
-    ax.fill_between(x, prices, alpha=0.15, color=GREEN)
-    #  shades the area under the price curve for better visibility
+    # shades the area under the price curve for better visibility
+    axes.fill_between(x, prices, alpha=0.15, color=GREEN)
 
-    ax.plot(x, prices, color=GREEN, lw=1.2, label="BTC/USD")
-    #  plots the raw price data as a line
+    # plots the raw price data as a line
+    axes.plot(x, prices, color=GREEN, lw=1.2, label="BTC/USD")
 
-    ax.plot(x_ma7, ma7, color=CYAN,  lw=2.0, label="7-day avg")
-    #  plots the 7-day moving average as a smoother line
+    # plots the 7-day moving average as a smoother line
+    axes.plot(x_ma7, ma7, color=CYAN,  lw=2.0, label="7-day avg")
 
-    ax.axhline(mean, color=GREEN, lw=0.8, ls="--",
-               alpha=0.5, label=f"Mean ${mean:,.0f}")
-    #  adds a horizontal dashed line at the mean price for reference
+    # adds a horizontal dashed line at the mean price for reference
+    axes.axhline(mean, color=GREEN, lw=0.8, ls="--",
+                 alpha=0.5, label=f"Mean ${mean:,.0f}")
 
-    ax.set_title("BITCOIN · 30-DAY SIGNAL", color=GREEN,
-                 fontfamily="monospace", fontsize=12, pad=10)
-    #  sets the title of the plot with some styling
+    # sets the title of the plot with some styling
+    axes.set_title("BITCOIN · 30-DAY SIGNAL", color=GREEN,
+                   fontfamily="monospace", fontsize=12, pad=10)
 
-    ax.set_xlabel("Day", color=DIM, fontfamily="monospace")
-    #  labels the x-axis as "Day" with styling
+    # labels the x-axis as "Day" with styling
+    axes.set_xlabel("Day", color=DIM, fontfamily="monospace")
 
-    ax.set_ylabel("Price (USD)", color=DIM, fontfamily="monospace")
-    #  labels the y-axis as "Price (USD)" with styling
+    # labels the y-axis as "Price (USD)" with styling
+    axes.set_ylabel("Price (USD)", color=DIM, fontfamily="monospace")
 
-    ax.tick_params(colors=DIM, labelsize=8)
-    #  styles the tick marks and labels on both axes
+    # styles the tick marks and labels on both axes
+    axes.tick_params(colors=DIM, labelsize=8)
 
-    for sp in ax.spines.values():
+    # styles the borders of the plot area
+    for sp in axes.spines.values():
         sp.set_color(DIM)
-        #  styles the borders of the plot area
-    ax.yaxis.set_major_formatter(plt.FuncFormatter(lambda v, _: f"${v:,.0f}"))
-    #  formats the y-axis labels as currency (e.g., $60,000)
 
-    ax.legend(facecolor=BG, edgecolor=DIM, labelcolor=GREEN,
-              fontsize=8, prop={"family": "monospace"})
-    #  adds a legend to the plot with styling
+    # formats the y-axis labels as currency (e.g., $60,000)
+    axes.yaxis.set_major_formatter(
+        plt.FuncFormatter(lambda v, _: f"${v:,.0f}"))
 
+    # adds a legend to the plot with styling
+    axes.legend(facecolor=BG, edgecolor=DIM, labelcolor=GREEN,
+                fontsize=8, prop={"family": "monospace"})
+
+    # adjusts the layout to prevent clipping of labels and title
+    # using plt instead if figure (implicit, uses current active figure)
     plt.tight_layout()
-    #  adjusts the layout to prevent clipping of labels and title
 
     plt.savefig("matrix_analysis.png", dpi=150,
                 bbox_inches="tight", facecolor=BG)
