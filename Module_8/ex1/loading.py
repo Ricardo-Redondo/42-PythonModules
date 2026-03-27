@@ -31,15 +31,16 @@ def dependency_check(dependencies: list[str]) -> None:
 
         print("\nand:")
 
-        print("\033[92mpython3\033[96m -m\033[0m pip "
+        print("\033[92mpip\033[93m "
               "install\033[96m -r\033[95m requirements.txt\033[0m")
         print("\033[92mpython3\033[95m loading.py\033[0m")
 
         print("\nor:")
 
-        print("")
+        print("\033[92mpip\033[93m install\033[0m poetry")
         print("\033[92mpoetry\033[0m install")
-        print("\033[92mpoetry\033[0m run python\033[95m loading.py\033[0m")
+        print("\033[92mpoetry\033[93m run\033[96m "
+              "python3\033[95m loading.py\033[0m")
 
         print("\nRun this program again.")
         print("-" * 42)

@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "loading"
 version = "1.0.0"
-description = ""
+description = "Saves a png with 30 days of bitcoin vallues in US dollars"
 authors = ["rsao-pay <rsao-pay@student.42lisboa.com>"]
 package-mode = false
 
