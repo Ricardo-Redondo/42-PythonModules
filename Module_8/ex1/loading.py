@@ -21,7 +21,7 @@ def dependency_check(dependencies: list[str]) -> None:
                   labels.get(dep, 'Ready'))
         except ImportError:
             missing.append(dep)
-            print(f"\033[93m[MISSING]\033[0m {dep}")
+            print(f"\033[5;93m[MISSING]\033[0m {dep}")
 
     if missing:
         print("\n" + "-" * 42)
