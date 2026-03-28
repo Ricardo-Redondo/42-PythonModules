@@ -14,11 +14,11 @@ if __name__ == "__main__":
         zion = os.getenv("ZION_ENDPOINT")
 
         missing = [name for name, val in {
-            "MATRIX_MODE":    mode,
-            "DATABASE_URL":   url,
-            "API_KEY":        api_key,
-            "LOG_LEVEL":      log_lvl,
-            "ZION_ENDPOINT":  zion,
+            "MATRIX_MODE": mode,
+            "DATABASE_URL": url,
+            "API_KEY": api_key,
+            "LOG_LEVEL": log_lvl,
+            "ZION_ENDPOINT": zion,
         }.items() if val is None or val == "None" or val.strip() == ""]
 
         if missing:

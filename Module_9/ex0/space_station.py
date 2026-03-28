@@ -15,12 +15,12 @@ class SpaceStation(BaseModel):
     notes: str = Field(max_length=200, default="")
 
 
-def main():
+if __name__ == "__main__":
     print("\n\033[46mSpace Station Data Validation\033[0m")
     print("\033[36m=\033[0m" * 59)
 
     try:
-        station = SpaceStation(
+        station1 = SpaceStation(
             station_id="ISS001",
             name="International Space Station",
             crew_size=6,
@@ -31,24 +31,24 @@ def main():
             notes="All systems nominal."
         )
         print("Valid station created:")
-        print(f"  ID               : {station.station_id}")
-        print(f"  Name             : {station.name}")
-        print(f"  Crew             : {station.crew_size} people")
-        print(f"  Power            : {station.power_level}%")
-        print(f"  Oxygen           : {station.oxigen_level}%")
-        print(f"  Last Maintenance : {station.last_maintenance}")
+        print(f"  ID               : {station1.station_id}")
+        print(f"  Name             : {station1.name}")
+        print(f"  Crew             : {station1.crew_size} people")
+        print(f"  Power            : {station1.power_level}%")
+        print(f"  Oxygen           : {station1.oxigen_level}%")
+        print(f"  Last Maintenance : {station1.last_maintenance}")
         print(f"  Status           : "
-              f"{'Operational' if station.is_operational else 'Offline'}")
+              f"{'Operational' if station1.is_operational else 'Offline'}")
     except ValidationError as e:
         for error in e.errors():
             field = error['loc'][0]
             msg = error['msg']
-            print(f"\033[5;101m[ERROR]\033[0m {field}: {msg}")
+            print(f"\033[3;5;101m[ERROR]\033[0m \033[3m{field}: {msg}\033[0m")
 
     print("\033[36m=\033[0m" * 59)
 
     try:
-        station = SpaceStation(
+        station2 = SpaceStation(
             station_id="ISS001",
             name="International Space Station",
             crew_size=21,
@@ -56,14 +56,19 @@ def main():
             oxigen_level=92.3,
             last_maintenance=datetime.now().strftime("%Y-%m-%d"),
         )
+        print("Valid station created:")
+        print(f"  ID               : {station2.station_id}")
+        print(f"  Name             : {station2.name}")
+        print(f"  Crew             : {station2.crew_size} people")
+        print(f"  Power            : {station2.power_level}%")
+        print(f"  Oxygen           : {station2.oxigen_level}%")
+        print(f"  Last Maintenance : {station2 .last_maintenance}")
+        print(f"  Status           : "
+              f"{'Operational' if station2.is_operational else 'Offline'}")
     except ValidationError as e:
         for error in e.errors():
             field = error['loc'][0]
             msg = error['msg']
-            print(f"\033[5;101m[ERROR]\033[0m {field}: {msg}")
+            print(f"\033[3;5;101m[ERROR]\033[0m \033[3m{field}: {msg}\033[0m")
 
     print("\033[36m=\033[0m" * 59)
-
-
-if __name__ == "__main__":
-    main()
