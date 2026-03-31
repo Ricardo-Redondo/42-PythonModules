@@ -46,8 +46,9 @@ class SpaceMission(BaseModel):
             raise ValueError("Mission crew must include at least one Captain "
                              "or one Commander")
 
-        exp = sum(1 for member in self.crew if member.years_experience >= 5)
-        if self.duration_days > 365 and exp < len(self.crew) / 2:
+        if self.duration_days > 365 and \
+                sum(1 for member in self.crew
+                    if member.years_experience >= 5) < len(self.crew) / 2:
             raise ValueError("Long missions require at least half of the crew "
                              "with more or equal than 5 years of experience")
 
@@ -103,7 +104,7 @@ if __name__ == "__main__":
         print(f"  Mission     : {mission1.mission_name}")
         print(f"  ID          : {mission1.mission_id}")
         print(f"  Destination : {mission1.destination}")
-        print(f"  Launch Date : {mission1.launch_date.strftime('%Y-%m-%d')}")
+        print(f"  Launch Date : {mission1.launch_date}")
         print(f"  Duration    : {mission1.duration_days} days")
         print(f"  Budget      : ${mission1.budget_millions} million")
         print(f"  Status      : {mission1.mission_status}")
@@ -111,7 +112,7 @@ if __name__ == "__main__":
         print("  Crew Members:")
         for member in mission1.crew:
             print(f"    - {member.name} ({member.rank.value}) = ",
-                  {member.specialization})
+                  member.specialization)
     except ValidationError as e:
         for error in e.errors():
             msg = error['msg']
@@ -152,7 +153,7 @@ if __name__ == "__main__":
         print(f"  Mission     : {mission2.mission_name}")
         print(f"  ID          : {mission2.mission_id}")
         print(f"  Destination : {mission2.destination}")
-        print(f"  Launch Date : {mission2.launch_date.strftime('%Y-%m-%d')}")
+        print(f"  Launch Date : {mission2.launch_date}")
         print(f"  Duration    : {mission2.duration_days} days")
         print(f"  Budget      : ${mission2.budget_millions} million")
         print(f"  Status      : {mission2.mission_status}")
@@ -160,9 +161,9 @@ if __name__ == "__main__":
         print("  Crew Members:")
         for member in mission2.crew:
             print(f"    - {member.name} ({member.rank.value}) = ",
-                  {member.specialization})
+                  member.specialization)
     except ValidationError as e:
         for error in e.errors():
             msg = error['msg']
-            print(f"\033[3;5;101m[ERROR]\033[0m "
+            print(f"\033[3;5;41m[ERROR]\033[0m "
                   f"\033[3m{msg.split(',')[1].strip()}\033[0m")

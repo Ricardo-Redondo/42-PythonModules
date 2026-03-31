@@ -15,7 +15,7 @@ class ContactType(str, Enum):
 
 class AlienContact(BaseModel):
     contact_id: str = Field(min_length=5, max_length=15)
-    timestamp: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")
+    timestamp: datetime
     location: str = Field(min_length=3, max_length=100)
     contact_type: ContactType
     signal_strength: float = Field(ge=0.0, le=10.0)
@@ -51,7 +51,7 @@ if __name__ == "__main__":
     try:
         contact1 = AlienContact(
             contact_id="AC_2024_001",
-            timestamp=datetime.now().strftime("%Y-%m-%d"),
+            timestamp=datetime.now(),
             location="Area 51, Nevada",
             contact_type=ContactType.RADIO,
             signal_strength=8.5,
@@ -80,7 +80,7 @@ if __name__ == "__main__":
     try:
         contact2 = AlienContact(
             contact_id="AC_2024_002",
-            timestamp=datetime.now().strftime("%Y-%m-%d"),
+            timestamp=datetime.now(),
             location="Sahara Desert",
             contact_type=ContactType.TELEPATHIC,
             signal_strength=8.0,

@@ -10,7 +10,7 @@ class SpaceStation(BaseModel):
     crew_size: int = Field(ge=1, le=20)
     power_level: float = Field(ge=0.0, le=100.0)
     oxigen_level: float = Field(ge=0.0, le=100.0)
-    last_maintenance: str = Field(pattern=r"^\d{4}-\d{2}-\d{2}$")  # YYYY-MM-DD
+    last_maintenance: datetime
     is_operational: bool = Field(default=True)
     notes: str = Field(max_length=200, default="")
 
@@ -26,7 +26,7 @@ if __name__ == "__main__":
             crew_size=6,
             power_level=85.5,
             oxigen_level=92.3,
-            last_maintenance=datetime.now().strftime("%Y-%m-%d"),
+            last_maintenance=datetime.now(),
             is_operational=True,
             notes="All systems nominal."
         )
@@ -54,7 +54,7 @@ if __name__ == "__main__":
             crew_size=21,
             power_level=85.5,
             oxigen_level=92.3,
-            last_maintenance=datetime.now().strftime("%Y-%m-%d"),
+            last_maintenance=datetime.now(),
         )
         print("Valid station created:")
         print(f"  ID               : {station2.station_id}")
@@ -69,6 +69,6 @@ if __name__ == "__main__":
         for error in e.errors():
             field = error['loc'][0]
             msg = error['msg']
-            print(f"\033[3;5;101m[ERROR]\033[0m \033[3m{field}: {msg}\033[0m")
+            print(f"\033[3;5;41m[ERROR]\033[0m \033[3m{field}: {msg}\033[0m")
 
     print("\033[36m=\033[0m" * 59)
