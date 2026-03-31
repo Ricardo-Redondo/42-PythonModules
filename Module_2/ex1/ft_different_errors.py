@@ -44,7 +44,7 @@ def test_error_types() -> None:
 
     print("Testing FileNotFoundError...")
     try:
-        file: TextIOWrapper = open("missing.txt", "r")
+        file = open("missing.txt", "r")
         file.read()
         file.close()
     except FileNotFoundError:
