@@ -36,24 +36,28 @@ class SpaceMission(BaseModel):
 
     @model_validator(mode="after")
     def validate(self):
-        if self.mission_id != ("M" + self.mission_id[1:]):
-            raise ValueError("mission_id must start with 'M'")
+        errors = []
 
-        if not any(list(member for member in self.crew
-                        if member.rank == Rank.CAPTAIN)) and not \
-                any(list(member for member in self.crew
-                         if member.rank == Rank.COMMANDER)):
-            raise ValueError("Mission crew must include at least one Captain "
-                             "or one Commander")
+        if not self.mission_id.startswith("M"):
+            errors.append("mission_id must start with 'M'")
 
-        if self.duration_days > 365 and \
-                sum(1 for member in self.crew
-                    if member.years_experience >= 5) < len(self.crew) / 2:
-            raise ValueError("Long missions require at least half of the crew "
-                             "with more or equal than 5 years of experience")
+        has_commander = any(m.rank == Rank.COMMANDER for m in self.crew)
+        has_captain = any(m.rank == Rank.CAPTAIN for m in self.crew)
+        if not has_commander and not has_captain:
+            errors.append("Mission crew must include at "
+                          "least one Captain or Commander")
 
-        if not all(member.is_active for member in self.crew):
-            raise ValueError("All crew members must be active for the mission")
+        if self.duration_days > 365:
+            experienced = sum(1 for m in self.crew if m.years_experience >= 5)
+            if experienced < len(self.crew) / 2:
+                errors.append("Long missions require at least "
+                              "half the crew with 5+ years experience")
+
+        if not all(m.is_active for m in self.crew):
+            errors.append("All crew members must be active for the mission")
+
+        if errors:
+            raise ValueError(" | ".join(errors))
 
         return self
 
@@ -61,6 +65,8 @@ class SpaceMission(BaseModel):
 if __name__ == "__main__":
     print("\n\033[46mSpace Mission Data Validation\033[0m")
     print("\033[36m=\033[0m" * 59)
+
+    err = "\n\033[3;5;101m[ERROR]\033[0m \033[3m"
 
     try:
         mission1 = SpaceMission(
@@ -115,14 +121,16 @@ if __name__ == "__main__":
                   member.specialization)
     except ValidationError as e:
         for error in e.errors():
-            msg = error['msg']
-            print(f"\033[3;5;101m[ERROR]\033[0m "
-                  f"\033[3m{msg.split(',')[1].strip()}\033[0m")
+            field = f"{error['loc'][0]}: " if error['loc'] else ""
+            msg = error['msg'].split(', ')[-1].replace(' | ', err)
+            parsed_msg = f"Validation Error: {msg}" \
+                if len(error['msg'].split(', ')) > 1 else error['msg']
+            print(f"{err}{field}{msg}\033[0m")
 
     print("\033[36m=\033[0m" * 59)
     try:
         mission2 = SpaceMission(
-            mission_id="M2024_MARS",
+            mission_id="2024_MARS",
             mission_name="Mars Colony Establishment",
             destination="Mars",
             launch_date=datetime.now(),
@@ -164,6 +172,8 @@ if __name__ == "__main__":
                   member.specialization)
     except ValidationError as e:
         for error in e.errors():
-            msg = error['msg']
-            print(f"\033[3;5;41m[ERROR]\033[0m "
-                  f"\033[3m{msg.split(',')[1].strip()}\033[0m")
+            field = f"{error['loc'][0]}: " if error['loc'] else ""
+            msg = error['msg'].split(', ')[-1].replace(' | ', err)
+            parsed_msg = f"Validation Error: {msg}" \
+                if len(error['msg'].split(', ')) > 1 else error['msg']
+            print(f"{err}{field}{msg}\033[0m")

@@ -27,19 +27,24 @@ class AlienContact(BaseModel):
 
     @model_validator(mode="after")
     def validate(self):
+        errors = []
+
         if self.contact_id != ("AC" + self.contact_id[2:]):
-            raise ValueError("contact_id must start with 'AC'")
+            errors.append("contact_id must start with 'AC'")
 
         if self.contact_type == ContactType.PHYSICAL and not self.is_verified:
-            raise ValueError("Physical contacts must be verified")
+            errors.append("Physical contacts must be verified")
 
         if self.contact_type == ContactType.TELEPATHIC and \
                 self.witness_count < 3:
-            raise ValueError("Telepathic contacts "
-                             "requires at least 3 witnesses")
+            errors.append("Telepathic contacts "
+                          "requires at least 3 witnesses")
 
         if self.signal_strength > 7.0 and not self.message_received:
-            raise ValueError("Strong signals must have a message received")
+            errors.append("Strong signals must have a message received")
+
+        if errors:
+            raise ValueError(" | ".join(errors))
 
         return self
 
@@ -47,6 +52,8 @@ class AlienContact(BaseModel):
 if __name__ == "__main__":
     print("\n\033[46mAlien Contact Data Validation\033[0m")
     print("\033[36m=\033[0m" * 59)
+
+    err = "\n\033[3;5;101m[ERROR]\033[0m \033[3m"
 
     try:
         contact1 = AlienContact(
@@ -73,8 +80,11 @@ if __name__ == "__main__":
         print(f"  Verified       : {'Yes' if contact1.is_verified else 'No'}")
     except ValidationError as e:
         for error in e.errors():
-            msg = error['msg']
-            print(f"\033[3;5;41m[ERROR]\033[0m \033[3m{msg}\033[0m")
+            field = f"{error['loc'][0]}: " if error['loc'] else ""
+            msg = error['msg'].split(', ')[-1].replace(' | ', err)
+            parsed_msg = f"Validation Error: {msg}" \
+                if len(error['msg'].split(', ')) > 1 else error['msg']
+            print(f"{err}{field}{msg}\033[0m")
 
     print("\033[36m=\033[0m" * 59)
     try:
@@ -101,5 +111,8 @@ if __name__ == "__main__":
         print(f"  Verified       : {'Yes' if contact2.is_verified else 'No'}")
     except ValidationError as e:
         for error in e.errors():
-            msg = error['msg']
-            print(f"\033[3;5;41m[ERROR]\033[0m \033[3m{msg}\033[0m")
+            field = f"{error['loc'][0]}: " if error['loc'] else ""
+            msg = error['msg'].split(', ')[-1].replace(' | ', err)
+            parsed_msg = f"Validation Error: {msg}" \
+                if len(error['msg'].split(', ')) > 1 else error['msg']
+            print(f"{err}{field}{msg}\033[0m")
