@@ -19,8 +19,8 @@ def main() -> None:
 
     print("=== Plant Factory Output ===\n")
 
-    plant_data: list[tuple[str, float, int]] = [
-        ("rose", 0.45, 5),
+    plant_data: list[tuple[str, int, int]] = [
+        ("rose", 1, 5),
         ("chocolate cosmos", 40, 12),
         ("black bat", 26, 29),
         ("flame lily", 20, 10),
